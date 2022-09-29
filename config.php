@@ -1,8 +1,8 @@
 <?php 
 // Database configuration    
-define('DB_HOST', 'db'); 
-define('DB_USERNAME', 'root'); 
-define('DB_PASSWORD', 'haha1212'); 
+define('DB_HOST', 'localhost'); 
+define('DB_USERNAME', 'raccoon'); 
+define('DB_PASSWORD', '1zRL3YZ998$y'); 
 define('DB_NAME', 'googleapi'); 
  
 // Google API configuration 
