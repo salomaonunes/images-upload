@@ -1,10 +1,11 @@
 <?php     
+require 'vendor/autoload.php';
 // Include database configuration file 
 require_once 'dbConfig.php'; 
  
 $statusMsg = $valErr = ''; 
 $status = 'danger'; 
- 
+
 // If the form is submitted 
 if(isset($_POST['submit'])){ 
      
@@ -12,17 +13,18 @@ if(isset($_POST['submit'])){
     if(empty($_FILES["file"]["name"])){ 
         $valErr .= 'Please select a file to upload.<br/>'; 
     } 
-     
+    
     // Check whether user inputs are empty 
     if(empty($valErr)){ 
-        $targetDir = "uploads/"; 
+        $targetDir = "./uploads/"; 
         $fileName = basename($_FILES["file"]["name"]); 
         $targetFilePath = $targetDir . $fileName; 
-         
+        $uploadSuccess = move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath);
+        
         // Upload file to local server 
-        if(move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)){ 
-             
+        if($uploadSuccess){ 
             // Insert data into the database 
+            //dd($uploadSuccess);
             $sqlQ = "INSERT INTO drive_files (file_name,created) VALUES (?,NOW())"; 
             $stmt = $db->prepare($sqlQ); 
             $stmt->bind_param("s", $db_file_name); 
@@ -42,6 +44,8 @@ if(isset($_POST['submit'])){
             } 
         }else{ 
             $statusMsg = 'File upload failed, please try again after some time.'; 
+            
+            
         } 
     }else{ 
         $statusMsg = '<p>Please fill all the mandatory fields:</p>'.trim($valErr, '<br/>'); 

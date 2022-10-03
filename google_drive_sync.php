@@ -27,7 +27,7 @@ if(isset($_GET['code'])){
          
         if(!empty($fileData)){ 
             $file_name = $fileData['file_name']; 
-            $target_file = 'uploads/'.$file_name; 
+            $target_file = './uploads/'.$file_name; 
             $file_content = file_get_contents($target_file); 
             $mime_type = mime_content_type($target_file); 
              
